@@ -1,0 +1,70 @@
+# Project: Final project
+# Makefile created by Embarcadero Dev-C++ 6.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = Address.o CustomerManaging.o Database.o DrinkItem.o FoodItem.o main3.o MenuItem.o MenuItemDAO.o Order1.o OrderDAO.o Restaurant.o RestaurantDAO.o RestaurantManaging.o SiteManaging.o sqlite3.o
+LINKOBJ  = Address.o CustomerManaging.o Database.o DrinkItem.o FoodItem.o main3.o MenuItem.o MenuItemDAO.o Order1.o OrderDAO.o Restaurant.o RestaurantDAO.o RestaurantManaging.o SiteManaging.o sqlite3.o
+LIBS     = -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib" -L"C:/Users/ASUS/Downloads/Compressed/raylib-5.5_win64_mingw-w64/raylib-5.5_win64_mingw-w64/lib" -lraylib -lopengl32 -lgdi32 -lwinmm
+INCS     = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Users/ASUS/Downloads/Compressed/raylib-5.5_win64_mingw-w64/raylib-5.5_win64_mingw-w64/include"
+CXXINCS  = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
+BIN      = "Final project.exe"
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+DEL      = C:\Program Files (x86)\Embarcadero\Dev-Cpp\DevCpp.exe INTERNAL_DEL
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${DEL} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+Address.o: Address.cpp
+	$(CPP) -c Address.cpp -o Address.o $(CXXFLAGS)
+
+CustomerManaging.o: CustomerManaging.cpp
+	$(CPP) -c CustomerManaging.cpp -o CustomerManaging.o $(CXXFLAGS)
+
+Database.o: Database.cpp
+	$(CPP) -c Database.cpp -o Database.o $(CXXFLAGS)
+
+DrinkItem.o: DrinkItem.cpp
+	$(CPP) -c DrinkItem.cpp -o DrinkItem.o $(CXXFLAGS)
+
+FoodItem.o: FoodItem.cpp
+	$(CPP) -c FoodItem.cpp -o FoodItem.o $(CXXFLAGS)
+
+main3.o: main3.cpp
+	$(CPP) -c main3.cpp -o main3.o $(CXXFLAGS)
+
+MenuItem.o: MenuItem.cpp
+	$(CPP) -c MenuItem.cpp -o MenuItem.o $(CXXFLAGS)
+
+MenuItemDAO.o: MenuItemDAO.cpp
+	$(CPP) -c MenuItemDAO.cpp -o MenuItemDAO.o $(CXXFLAGS)
+
+Order1.o: Order1.cpp
+	$(CPP) -c Order1.cpp -o Order1.o $(CXXFLAGS)
+
+OrderDAO.o: OrderDAO.cpp
+	$(CPP) -c OrderDAO.cpp -o OrderDAO.o $(CXXFLAGS)
+
+Restaurant.o: Restaurant.cpp
+	$(CPP) -c Restaurant.cpp -o Restaurant.o $(CXXFLAGS)
+
+RestaurantDAO.o: RestaurantDAO.cpp
+	$(CPP) -c RestaurantDAO.cpp -o RestaurantDAO.o $(CXXFLAGS)
+
+RestaurantManaging.o: RestaurantManaging.cpp
+	$(CPP) -c RestaurantManaging.cpp -o RestaurantManaging.o $(CXXFLAGS)
+
+SiteManaging.o: SiteManaging.cpp
+	$(CPP) -c SiteManaging.cpp -o SiteManaging.o $(CXXFLAGS)
+
+sqlite3.o: sqlite3.c
+	$(CC) -c sqlite3.c -o sqlite3.o $(CFLAGS)
