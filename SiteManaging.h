@@ -14,5 +14,6 @@ void removeRestaurant(sqlite3* db, vector<Restaurant*>& allRestaurants);
 void deleteAllRestaurants(vector<Restaurant*>& allRestaurants);
 void changeRestaurantActivity(sqlite3* db, vector<Restaurant*>& allRestaurants);
 void SalesStatistics(vector<Order*>& allOrders);
+void deleteOneOrder(vector<Order*>& allOrders, int id);
 
 #endif

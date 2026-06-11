@@ -169,12 +169,13 @@ int main()
                 cout << "2. Remove a restaurant" << endl;
                 cout << "3. Change a restaurant's activity" << endl;
                 cout << "4. Show the sales statistics" << endl;
+                cout << "5. Delete order from the site" << endl;
                 cout << "0. Back to Main Menu" << endl;
                 cout << "Choose your operation: ";
 
                 int num1;
                 cin >> num1;
-                while (!(num1 >= 0 && num1 <= 4)) {
+                while (!(num1 >= 0 && num1 <= 5)) {
                     cerr << "Invalid operation! Try again..." << endl << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -186,6 +187,24 @@ int main()
                     case 2: removeRestaurant(db, allRestaurants); break;
                     case 3: changeRestaurantActivity(db, allRestaurants); break;
                     case 4: SalesStatistics(allOrders); break;
+                    case 5: {
+                    	cout << "Enter the ID of the order you want to delete: ";
+                    	int id;
+                    	cin >> id;
+                    	cout << "Are you sure about your decision? No one will see it again! Yes/No: ";
+                    	string decision;
+                    	cin >> decision;
+                    	if(decision == "Yes" || decision == "yes"){
+                    		bool rm= OrderDAO::deleteOrder(db, id);
+                    		if(rm){
+                    			deleteOneOrder(allOrders, id); // just for delete one special order from vector
+                    			cout << "Order deleted successfully!" << endl << endl;
+							}
+						}else{
+							cerr << "Operation failed! Try again..." << endl << endl;
+						}
+						break;
+					}
                     case 0: backToMain = true; break;
                 }
             }

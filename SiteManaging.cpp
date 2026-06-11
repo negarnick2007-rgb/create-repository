@@ -102,3 +102,13 @@ void SalesStatistics(vector<Order*>& allOrders)
 	cout << "Total sales price: " << total << endl << endl;
 }
 
+void deleteOneOrder(vector<Order*>& allOrders, int id)
+{
+	for(size_t i=0; i<allOrders.size(); i++){
+		if(allOrders[i]->getOrderId() == id){
+			delete allOrders[i];
+			allOrders.erase(allOrders.begin() + i);
+			break;
+		}
+	}
+}
