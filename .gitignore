@@ -1,0 +1,6 @@
+*.dev
+*.exe
+*.o
+*.layout
+*.db
+Makefile.win
