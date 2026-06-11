@@ -45,7 +45,11 @@ void EditOrderStatus(sqlite3* db, Restaurant* r, vector<Order*>& allOrders)
 	int orderID, k;
 	string status;
 	cout << "Enter order ID: ";
-	cin >> orderID;
+	while(!(cin >> orderID)){
+		cerr << "Please enter numeric order ID: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	for(size_t i=0; i<allOrders.size(); i++){
 		if(allOrders[i]->getOrderId() == orderID){
 			k=i;
@@ -109,7 +113,11 @@ void changeManagerID(sqlite3* db, Restaurant* r)
 {
 	int id;
 	cout << "Enter your new ID: ";
-	cin >> id;
+	while(!(cin >> id)){
+		cerr << "Please enter numeric ID: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	r->setManagerID(id);
 	RestaurantDAO::updateRestaurant(db, r);
 	cout << "Your ID changed!" << endl << endl;
@@ -119,7 +127,11 @@ void EditItemDetails(sqlite3* db, Restaurant* r)
 {
 	int itemId, num;
 	cout << "Enter Id of the item";
-	cin >> itemId;
+	while(!(cin >> itemId)){
+		cerr << "Please ener numeric item ID: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	
 	cout << "Which one do you want to edit?" << endl;
 	cout << "1. Name" << endl;

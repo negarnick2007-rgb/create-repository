@@ -2,6 +2,7 @@
 #include <string>
 #include "FoodItem.h"
 #include "MenuItem.h"
+#include <limits>
 
 using std::string;
 using std::cout;
@@ -26,7 +27,11 @@ void FoodItem::readItem()
 	int id, prep;
 	double price;
 	
-	cin >> id;
+	while(!(cin >> id)){
+		cerr << "Please enter numeric ID: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	setID(id);
 	
 	cin.ignore();
@@ -36,10 +41,18 @@ void FoodItem::readItem()
 	getline(cin, descrip);
 	setDescription(descrip);
 	
-	cin >> price;
+	while(!(cin >> price)){
+		cerr << "Please enter numeric price: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	setPrice(price);
 	
-	cin >> prep;
+	while(!(cin >> prep)){
+		cerr << "Please enter numeric preparation time in minute: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	setPrepTime(prep);
 	
 	cin.ignore();

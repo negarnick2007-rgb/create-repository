@@ -40,7 +40,6 @@ int main()
             cerr << "Invalid choice! Please enter another number..." << endl << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
         }
 
         if (type == 0) {
@@ -57,7 +56,11 @@ int main()
             
             int restaurantID, customerID;
             cout << "Enter your ID and the restaurant ID: ";
-            cin >> customerID >> restaurantID;
+            while(!(cin >> customerID >> restaurantID)){
+            	cerr << "Invalid choice! Please enter another numbers..." << endl << endl;
+            	cin.clear();
+            	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
             
             Order* order = buildOrder(customerID, restaurantID);
             
@@ -99,7 +102,11 @@ int main()
                     {
                         int newID;
                         cout << "Enter new restaurant ID: ";
-                        cin >> newID;
+                        while(!(cin >> newID)){
+                        	cerr << "Please enter a numeric ID: ";
+                        	cin.clear();
+                        	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
                         order->clearOrder(newID);
                         cout << "Order reset to Restaurant ID: " << newID << endl;
                         break;
@@ -114,7 +121,11 @@ int main()
         else if (type == 2) {
             int restaurantID, managerID;
             cout << "Enter your ID and your restaurant ID: ";
-            cin >> managerID >> restaurantID;
+            while(!(cin >> managerID >> restaurantID)){
+            	cerr << "Invalid choice! Please enter another numbers..." << endl << endl;
+            	cin.clear();
+            	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
             
             Restaurant* r = FindMyRestaurant(restaurantID, managerID, allRestaurants);
             if (r == nullptr) {
@@ -190,7 +201,11 @@ int main()
                     case 5: {
                     	cout << "Enter the ID of the order you want to delete: ";
                     	int id;
-                    	cin >> id;
+                    	while(!(cin >> id)){
+                    		cerr << "Pleasr enter a numeric ID: ";
+                    		cin.clear();
+                    		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+						}
                     	cout << "Are you sure about your decision? No one will see it again! Yes/No: ";
                     	string decision;
                     	cin >> decision;

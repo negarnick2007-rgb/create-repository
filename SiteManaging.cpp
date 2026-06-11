@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <limits>
 #include "SiteManaging.h"
 #include "Restaurant.h"
 #include "Order.h"
@@ -35,7 +36,11 @@ void removeRestaurant(sqlite3* db, vector<Restaurant*>& allRestaurants)
 {
 	int id;
 	cout << "Enter the restaurant ID: ";
-	cin >> id;
+	while(!(cin >> id)){
+		cerr << "Please enter numeric ID: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	
 	for(size_t i=0; i<allRestaurants.size(); i++){
 		if(allRestaurants[i]->getID() == id){
@@ -61,7 +66,11 @@ void changeRestaurantActivity(sqlite3* db, vector<Restaurant*>& allRestaurants)
 {
 	int id;
 	cout << "Enter ID of the restaurant: ";
-	cin >> id;
+	while(!(cin >> id)){
+		cerr << "Please enter numeric ID: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	
 	Restaurant* r= FindRestaurantByID(id, allRestaurants);
 	

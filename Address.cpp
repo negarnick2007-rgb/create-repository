@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Address.h"
+#include <limits>
 
 using namespace std;
 
@@ -15,7 +16,12 @@ void Address::printAddress() const
 
 istream& operator >> (istream& input, Address& add)
 {
-	input >> add.city >> add.street >> add.placeNumber;
+	input >> add.city >> add.street;
+	while(!(input >> add.placeNumber)){
+		cerr << "Please enter a numeric place number: ";
+		input.clear();
+		input.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	return input; 
 }
 

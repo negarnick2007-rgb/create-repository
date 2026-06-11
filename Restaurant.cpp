@@ -4,6 +4,7 @@
 #include "MenuItem.h"
 #include "Restaurant.h"
 #include "Address.h"
+#include <limits>
 
 using namespace std;
 
@@ -163,14 +164,22 @@ void Restaurant::removeItem(int itemId)
 
 istream& operator >> (istream& input, Restaurant& r)
 {
-	input >> r.id;
+	while(!(input >> r.id)){
+		cerr << "Please enter numeric ID: ";
+		input.clear();
+		input.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	input.ignore();
 	getline(input, r.name);
 	getline(input, r.phoneNumber);
 	getline(input, r.description);
 	input >> r.address;
 	input.ignore();
-	input >> r.managerID;
+	while(!(input >> r.managerID)){
+		cerr << "Please enter numeric ID: ";
+		input.clear();
+		input.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	return input;
 	
 }

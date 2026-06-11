@@ -44,7 +44,11 @@ void paymentManaging(sqlite3* db, Order* order, vector<Order*>& allOrders)
 {
 	double totalPrice;
 	cout << "Please pay the bill: (send the total price) ";
-	cin >> totalPrice;
+	while(!(cin >> totalPrice)){
+		cerr << "Please enter numeric total price: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
 	
 	bool canPay= order->finalizePayment(totalPrice);
 	
