@@ -59,6 +59,13 @@ bool Database::init(const string& dbPath)
 		"itemID INTEGER NOT NULL,"
 		"FOREIGN KEY(orderID) REFERENCES Orders(id),"
 		"FOREIGN KEY(itemID) REFERENCES RestaurantItems(id)"
+		");"
+		
+		"CREATE TABLE IF NOT EXISTS Customers ("
+		"id INTEGER PRIMARY KEY,"
+		"points INTEGER DEFAULT 0,"
+		"level TEXT DEFAULT 'Normal',"
+		"coupons INTEGER DEFAULT 0"
 		");";
 		
 	char* errorMessage= nullptr;
