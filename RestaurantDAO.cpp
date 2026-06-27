@@ -11,10 +11,6 @@ using namespace std;
 
 int RestaurantDAO::saveRestaurant(sqlite3* db, Restaurant* r)
 {
-    if (!db || !r){
-    	return -1;
-	}
-    
     const char* sql = "INSERT OR REPLACE INTO Restaurants (id, name, phoneNumber, description, active, managerID, city, street, placeNumber) "
                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
     
@@ -40,10 +36,6 @@ int RestaurantDAO::saveRestaurant(sqlite3* db, Restaurant* r)
 
 Restaurant* RestaurantDAO::getRestaurantById(sqlite3* db, int id)
 {
-    if (!db){
-    	return nullptr;
-	}
-    
     const char* sql = "SELECT * FROM Restaurants WHERE id = ?;";
     sqlite3_stmt* stmt;
     sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
@@ -84,10 +76,6 @@ Restaurant* RestaurantDAO::getRestaurantById(sqlite3* db, int id)
 
 void RestaurantDAO::loadAllRestaurants(sqlite3* db, vector<Restaurant*>& allRestaurants)
 {
-	if (!db){
-    	return;
-	}
-    
     const char* sql = "SELECT * FROM Restaurants;";
     sqlite3_stmt* stmt;
     sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
@@ -131,10 +119,6 @@ void RestaurantDAO::loadAllRestaurants(sqlite3* db, vector<Restaurant*>& allRest
 
 bool RestaurantDAO::updateRestaurant(sqlite3* db, Restaurant* r)
 {
-    if (!db || !r){
-    	return false;
-	}
-    
     const char* sql = "UPDATE Restaurants SET name=?, phoneNumber=?, description=?, active=?, managerID=?, "
                       "city=?, street=?, placeNumber=? WHERE id=?;";
     
@@ -161,10 +145,6 @@ bool RestaurantDAO::updateRestaurant(sqlite3* db, Restaurant* r)
 
 bool RestaurantDAO::deleteRestaurant(sqlite3* db, int id)
 {
-    if (!db){
-    	return false;
-	}
-    
     const char* sql1 = "DELETE FROM RestaurantItems WHERE restaurantID = ?;";
     sqlite3_stmt* stmt;
     sqlite3_prepare_v2(db, sql1, -1, &stmt, nullptr);

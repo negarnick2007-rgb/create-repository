@@ -9,6 +9,8 @@
 #include "Database.h"
 #include "RestaurantDAO.h"
 #include "OrderDAO.h"
+#include "Customer.h"
+#include "CustomerDAO.h"
 
 using namespace std;
 
@@ -24,9 +26,11 @@ int main()
     
     vector<Restaurant*> allRestaurants;
     vector<Order*> allOrders;
+    vector<Customer*> allCustomers;
 
 	RestaurantDAO::loadAllRestaurants(db, allRestaurants);
 	OrderDAO::loadAllOrders(db, allOrders);
+	CustomerDAO::loadAllCustomers(db, allCustomers);
 	
     while (true) {
     	cout << "Do you want to login as which user?" << endl << endl;
@@ -46,6 +50,7 @@ int main()
             cout << "Cleaning up and exiting..." << endl;
             deleteAllOrders(allOrders);
             deleteAllRestaurants(allRestaurants);
+            deleteAllCustomers(allCustomers);
             Database::close();
             break; 
         }
@@ -158,16 +163,36 @@ int main()
                 }
 
                 switch (num1) {
-                    case 1: EditOrderStatus(db, r, allOrders); break;
-                    case 2: showMyRestaurantOrders(r, allOrders); break;
-                    case 3: changeRestaurantAddress(db, r); break;
-                    case 4: changeRestaurantName(db, r); break;
-                    case 5: changeRestaurantPhone(db, r); break;
-                    case 6: changeRestaurantDescripe(db, r); break;
-                    case 7: changeManagerID(db, r); break;
-                    case 8: EditItemDetails(db, r); break;
-                    case 9: EditRestaurantMenu(db, r); break;
-                    case 0: backToMain = true; break;
+                    case 1: 
+						EditOrderStatus(db, r, allOrders);
+						break;
+                    case 2: 
+						showMyRestaurantOrders(r, allOrders); 
+						break;
+                    case 3: 
+						changeRestaurantAddress(db, r); 
+						break;
+                    case 4: 
+						changeRestaurantName(db, r); 
+						break;
+                    case 5: 
+						changeRestaurantPhone(db, r); 
+						break;
+                    case 6: 
+						changeRestaurantDescripe(db, r); 
+						break;
+                    case 7: 
+						changeManagerID(db, r); 
+						break;
+                    case 8: 
+						EditItemDetails(db, r); 
+						break;
+                    case 9: 
+						EditRestaurantMenu(db, r); 
+						break;
+                    case 0: 
+						backToMain = true; 
+						break;
                 }
             }
         }
@@ -194,10 +219,18 @@ int main()
                 }
 
                 switch (num1) {
-                    case 1: addNewRestaurant(db, allRestaurants); break;
-                    case 2: removeRestaurant(db, allRestaurants); break;
-                    case 3: changeRestaurantActivity(db, allRestaurants); break;
-                    case 4: SalesStatistics(allOrders); break;
+                    case 1: 
+						addNewRestaurant(db, allRestaurants); 
+						break;
+                    case 2: 
+						removeRestaurant(db, allRestaurants); 
+						break;
+                    case 3: 
+						changeRestaurantActivity(db, allRestaurants); 
+						break;
+                    case 4: 
+						SalesStatistics(allOrders); 
+						break;
                     case 5: {
                     	cout << "Enter the ID of the order you want to delete: ";
                     	int id;
@@ -220,7 +253,9 @@ int main()
 						}
 						break;
 					}
-                    case 0: backToMain = true; break;
+                    case 0: 
+						backToMain = true; 
+						break;
                 }
             }
         }

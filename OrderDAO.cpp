@@ -12,10 +12,6 @@ using namespace std;
 
 int OrderDAO::saveOrder(sqlite3* db, Order* order)
 {
-    if (!db || !order){
-    	return -1;
-	}
-    
     const char* sql = "INSERT INTO Orders (customerID, restaurantID, totalPrice, status) "
                       "VALUES (?, ?, ?, ?);";
     
@@ -49,10 +45,6 @@ int OrderDAO::saveOrder(sqlite3* db, Order* order)
 
 void OrderDAO::loadAllOrders(sqlite3* db, vector<Order*>& allOrders)
 {
-    if (!db){
-    	return;
-	}
-    
     const char* sql = "SELECT * FROM Orders;";
     sqlite3_stmt* stmt;
     sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
@@ -91,10 +83,6 @@ void OrderDAO::loadAllOrders(sqlite3* db, vector<Order*>& allOrders)
 
 bool OrderDAO::updateOrderStatus(sqlite3* db, int orderID, const string& status)
 {
-    if (!db){
-    	return false;
-	}
-    
     const char* sql = "UPDATE Orders SET status = ? WHERE id = ?;";
     sqlite3_stmt* stmt;
     sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
@@ -109,9 +97,6 @@ bool OrderDAO::updateOrderStatus(sqlite3* db, int orderID, const string& status)
 
 bool OrderDAO::deleteOrder(sqlite3* db, int orderID)
 {
-    if (!db){
-    	return false;
-	}
     const char* sql1 = "DELETE FROM OrderItems WHERE orderID = ?;";
     sqlite3_stmt* stmt;
     sqlite3_prepare_v2(db, sql1, -1, &stmt, nullptr);

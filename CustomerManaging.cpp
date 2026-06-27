@@ -6,6 +6,7 @@
 #include "Order.h"
 #include "Restaurant.h"
 #include "OrderDAO.h"
+#include "Customer.h"
 
 using namespace std;
 
@@ -13,6 +14,21 @@ Order* buildOrder(int customerID, int restaurantID)
 {
 	Order* order= new Order(customerID, restaurantID);
 	return order;
+}
+
+Customer* buildCustomer(sqlite3* db, int customerID, vector<Customer*>& allCustomers)
+{
+	for(size_t i=0; i<allCustomers.size(); i++){
+		if(allCustomers[i]->getCustomerID() == customerID){
+			return allCustomers[i];
+		}
+	}
+	
+	Customer* customer= new Customer(customerID);
+	allCustomers.push_back(customer);
+	
+	CustomerDAO::saveCustomer(db, customer);
+	return customer;
 }
 
 void ordersHistory(int customerID, vector<Order*>& allOrders)
@@ -69,6 +85,14 @@ void deleteAllOrders(vector<Order*>& allOrders)
 	for(size_t i=0; i<allOrders.size(); i++){
 		delete allOrders[i];
 		allOrders[i]= nullptr;
+	}
+}
+
+void deleteAllCustomers(vector<Customer*>& allCustomers)
+{
+	for(size_t i=0; i<allCustomers.size(); i++){
+		delete allCustomers[i];
+		allCustomers[i]= nullptr;
 	}
 }
 
