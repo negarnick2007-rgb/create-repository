@@ -101,7 +101,7 @@ void Order::displayOrder() const
 	for(size_t i=0; i<items.size(); i++){
 		items[i]->displayDetails();
 	}
-	cout << "total price: " << totalPrice << endl;
+	cout << "base price of items: " << totalPrice << endl;
 	cout << orderStatus << endl << endl;
 }
 
@@ -112,7 +112,7 @@ void Order::clearOrder(int newRestaurantID)
 	orderStatus= "";
 	restaurantID= newRestaurantID;
 	cout << "Your order is empty now" << endl;
-	cout << "Total price since now: " << totalPrice << endl << endl;
+	cout << "Base price since now: " << totalPrice << endl << endl;
 }
 
 int Order::getOrderCount()

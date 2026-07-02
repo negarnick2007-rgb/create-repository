@@ -8,7 +8,7 @@ using namespace std;
 class SilverLevel : public MembershipLevel{
 	public:
     	string getLevelName() const override;
-    	int getPoinRange() const override;
+    	int getPointRange() const override;
     	int getEarnedPoints(double orderAmount) const override;
     	double getFinalPrice(double basePrice) const override;
     	double getShippingCost(double baseShipping) const override;

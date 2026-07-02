@@ -7,6 +7,7 @@
 #include "Restaurant.h"
 #include "OrderDAO.h"
 #include "Customer.h"
+#include "CustomerDAO.h"
 
 using namespace std;
 
@@ -56,10 +57,21 @@ bool canAddItem(int ItemID, int restaurantID, vector<Restaurant*>& allRestaurant
 	return false;
 }
 
-void paymentManaging(sqlite3* db, Order* order, vector<Order*>& allOrders)
+void paymentManaging(sqlite3* db, Order* order, vector<Order*>& allOrders, Customer* customer)
 {
+	double firstPrice= order->getTotalPrice();
+	double finalPrice= customer->getLevel()->getFinalPrice(firstPrice);
+	double shipCost = customer->getLevel()->getShippingCost(10.0);
+	double discount = firstPrice - finalPrice;
+	double bill= finalPrice + shipCost;
+	
+	cout << "Base price: " << firstPrice << endl;
+	cout << "Discount: " << discount << endl;
+	cout << "Shipping cost: " << shipCost << endl;
+	cout << "Final Price: " << bill << endl;
+	
 	double totalPrice;
-	cout << "Please pay the bill: (send the total price) ";
+	cout << "Please pay the bill: (send the final price) ";
 	while(!(cin >> totalPrice)){
 		cerr << "Please enter numeric total price: ";
 		cin.clear();
@@ -74,6 +86,12 @@ void paymentManaging(sqlite3* db, Order* order, vector<Order*>& allOrders)
 		cin >> totalPrice;
 		canPay= order->finalizePayment(totalPrice);
 	}
+	int amount= firstPrice;
+	customer->addPoints(amount);
+	CustomerDAO::updateCustomer(db, customer);
+	
+	cout << "Points you have earned now: " << customer->getLevel()->getEarnedPoints(firstPrice) << endl;
+	
 	int orderID= OrderDAO::saveOrder(db, order);
 	order->setOrderID(orderID);
 	

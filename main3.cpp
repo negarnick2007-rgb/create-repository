@@ -62,11 +62,12 @@ int main()
             int restaurantID, customerID;
             cout << "Enter your ID and the restaurant ID: ";
             while(!(cin >> customerID >> restaurantID)){
-            	cerr << "Invalid choice! Please enter another numbers..." << endl << endl;
+            	cerr << "Invalid restaurant id! Please enter another numbers..." << endl << endl;
             	cin.clear();
             	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
             
+            Customer* customer = buildCustomer(db, customerID, allCustomers);
             Order* order = buildOrder(customerID, restaurantID);
             
             bool backToMain = false;
@@ -100,7 +101,7 @@ int main()
                         ordersHistory(customerID, allOrders);
                         break;
                     case 4:
-                        paymentManaging(db, order, allOrders);
+                        paymentManaging(db, order, allOrders, customer);
                         backToMain = true; 
                         break;
                     case 5:

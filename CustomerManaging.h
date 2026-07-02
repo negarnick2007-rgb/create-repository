@@ -14,7 +14,7 @@ Customer* buildCustomer(sqlite3* db, int customerID, vector<Customer*>& allCusto
 Restaurant* findSelectedRestaurant(int id, vector<Restaurant*>& allRestaurants);
 void ordersHistory(int customerID, vector<Order*>& allOrders);
 bool canAddItem(int ItemID, int restaurantID, vector<Restaurant*>& allRestaurants);
-void paymentManaging(sqlite3* db, Order* order, vector<Order*>& allOrders);
+void paymentManaging(sqlite3* db, Order* order, vector<Order*>& allOrders, Customer* customer);
 void deleteAllOrders(vector<Order*>& allOrders);
 void deleteAllCustomers(vector<Customer*>& allCustomers);
 void showAllRestaurants(vector<Restaurant*>& allRestaurants);
