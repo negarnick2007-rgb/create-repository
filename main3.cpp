@@ -69,6 +69,19 @@ int main()
             
             Customer* customer = buildCustomer(db, customerID, allCustomers);
             Order* order = buildOrder(customerID, restaurantID);
+            int next= customer->getLevel()->getNextLevelP();
+            
+            cout << "# About You" << endl << endl;
+            cout << "Your ID: " << customer->getCustomerID() << endl;
+            cout << "Your Level: " << customer->getLevel()->getLevelName() << endl;
+            cout << "Your Points: " << customer->getPoints() << endl;
+            
+            if(next == 0){
+            	cout << "You are in the last level!" << endl << endl;
+			}else{
+				int need= next - customer->getPoints();
+				cout << "Number of the points you need to upgrade: " << need << endl << endl;
+			}
             
             bool backToMain = false;
             while (!backToMain) {
@@ -79,11 +92,12 @@ int main()
                 cout << "3. Showing your order histories" << endl;
                 cout << "4. Continue and place the order" << endl;
                 cout << "5. Make the order empty and set again" << endl;
+                cout << "6. Cancelling your order" << endl;
                 cout << "0. Back to main menu" << endl;
                 cout << "Choose your operation: ";
                 
                 cin >> num1;
-                while (!(num1 >= 0 && num1 <= 5)) {
+                while (!(num1 >= 0 && num1 <= 6)) {
                     cerr << "Invalid choice! please try again..." << endl << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -117,6 +131,9 @@ int main()
                         cout << "Order reset to Restaurant ID: " << newID << endl;
                         break;
                     }
+                    case 6:
+                    	cancelingOrder(db, customerID, allOrders, allCustomers);
+                    	break;
                     case 0:
                         backToMain = true; 
                         break;
@@ -207,12 +224,14 @@ int main()
                 cout << "3. Change a restaurant's activity" << endl;
                 cout << "4. Show the sales statistics" << endl;
                 cout << "5. Delete order from the site" << endl;
+                cout << "6. Show number of people in each level" << endl;
+                cout << "7. Changing a customer's points or level" << endl;
                 cout << "0. Back to Main Menu" << endl;
                 cout << "Choose your operation: ";
 
                 int num1;
                 cin >> num1;
-                while (!(num1 >= 0 && num1 <= 5)) {
+                while (!(num1 >= 0 && num1 <= 7)) {
                     cerr << "Invalid operation! Try again..." << endl << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -254,7 +273,13 @@ int main()
 						}
 						break;
 					}
-                    case 0: 
+					case 6:
+						showLevels(allCustomers);
+						break;
+					case 7:
+						changeLevel(db, allCustomers);
+						break;
+                    case 0:
 						backToMain = true; 
 						break;
                 }

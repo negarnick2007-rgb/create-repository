@@ -15,6 +15,7 @@ class GoldLevel : public MembershipLevel{
     	int getCouponCount() const override;
     	MembershipLevel* checkUpgrade(int Points) const override;
     	MembershipLevel* checkDowngrade(int Points) const override;
+    	int getNextLevelP() const override;
 };
 
 #endif

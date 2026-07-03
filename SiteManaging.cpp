@@ -5,6 +5,13 @@
 #include "Restaurant.h"
 #include "Order.h"
 #include "RestaurantDAO.h"
+#include "Customer.h"
+#include "MemberShipLevel.h"
+#include "NormalLevel.h"
+#include "SilverLevel.h"
+#include "GoldLevel.h"
+#include "VipLevel.h"
+#include "CustomerDAO.h"
 
 using namespace std;
 
@@ -117,6 +124,114 @@ void deleteOneOrder(vector<Order*>& allOrders, int id)
 		if(allOrders[i]->getOrderId() == id){
 			delete allOrders[i];
 			allOrders.erase(allOrders.begin() + i);
+			break;
+		}
+	}
+}
+
+void showLevels(vector<Customer*>& allCustomers)
+{
+	int normal=0, silver = 0, gold = 0, vip=0;
+	for(size_t i=0; i<allCustomers.size(); i++){
+		if(allCustomers[i]->getLevel()->getLevelName() == "Normal"){
+			normal++;
+		}else if(allCustomers[i]->getLevel()->getLevelName() == "Silver"){
+			silver++;
+		}else if(allCustomers[i]->getLevel()->getLevelName() == "Gold"){
+			gold++;
+		}else if(allCustomers[i]->getLevel()->getLevelName() == "VIP"){
+			vip++;
+		}
+	}
+	cout << "+++ Number of Customers in each level +++" << endl << endl;
+	cout << "Normal level: " << normal << " person" << endl;
+	cout << "Silver level: " << silver << " persen" << endl;
+	cout << "Gold level: " << gold << " person" << endl;
+	cout << "VIP level: " << vip << " person" << endl << endl;
+}
+
+void changeLevel(sqlite3* db, vector<Customer*>& allCustomers)
+{
+	int customerID;
+	cout << "Enter the ID of the customer you want to change its level or points: ";
+	while(!(cin >> customerID)){
+		cerr << "Please enter a numeric Id: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
+	Customer* cust;
+	for(size_t i=0; i<allCustomers.size(); i++){
+		if(allCustomers[i]->getCustomerID() == customerID){
+			cust= allCustomers[i];
+			break;
+		}
+	}
+	cout << "Level: " << cust->getLevel()->getLevelName() << endl;
+	cout << "Points: " << cust->getPoints() << endl << endl;
+	cout << "What do you want to change?" << endl;
+	cout << "1. Level" << endl;
+	cout << "2. Points" << endl;
+	int n;
+	while(!(cin >> n)){
+		cerr << "Wrong order! try again...  ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
+	switch (n){
+		case 1: {
+			string level;
+			cout << "Enter new level (Normal / Silver / Gold / VIP): ";
+			cin >> level;
+			MembershipLevel* l;
+			if(level == "Normal" || level == "normal"){
+				l= new NormalLevel();
+				int p= l->getPointRange();
+				cust->setPoints(p);
+				
+			}else if(level == "Silver" || level =="silver"){
+				l = new SilverLevel();
+				int p= l->getPointRange();
+				cust->setPoints(p);
+				
+			}else if(level == "Gold" || level == "gold"){
+				l= new GoldLevel();
+				int p= l->getPointRange();
+				cust->setPoints(p);
+				
+			}else{
+				l= new VipLevel();
+				int p= l->getPointRange();
+				cust->setPoints(p);
+			}
+			
+			cust->setLevel(l);
+			CustomerDAO::updateCustomer(db, cust);
+			break;
+		}
+		case 2:{
+			int point;
+			cout << "Enter new points: ";
+			cin >> point;
+			MembershipLevel* l;
+			if(point >= 0 && point < 100){
+				l = new NormalLevel();
+				cust->setLevel(l);
+				
+			}else if(point >= 100 && point < 300){
+				l = new SilverLevel();
+				cust->setLevel(l);
+				
+			}else if(point >= 300 && point < 700){
+				l = new GoldLevel();
+				cust->setLevel(l);
+				
+			}else if(point >= 700){
+				l = new VipLevel();
+				cust->setLevel(l);
+				
+			}
+			cust->setPoints(point);
+			CustomerDAO::updateCustomer(db, cust);
 			break;
 		}
 	}

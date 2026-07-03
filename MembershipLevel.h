@@ -14,6 +14,7 @@ class MembershipLevel{
     	virtual int getCouponCount() const = 0;
     	virtual MembershipLevel* checkUpgrade(int Points) const = 0;
     	virtual MembershipLevel* checkDowngrade(int Points) const = 0;
+    	virtual int getNextLevelP() const = 0; //for showing next level points range
 };
 
 #endif

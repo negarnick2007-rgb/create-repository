@@ -166,3 +166,35 @@ void removeFromOrder(Order* order)
 		order->removeItem(id);
 	}
 }
+
+void cancelingOrder(sqlite3* db, int customerID, vector<Order*>& allOrders, vector<Customer*>& allCustomers)
+{
+	int orderID;
+	cout << "Enter the order ID you want to cancel: ";
+	while(!(cin >> orderID)){
+		cerr << "Please enter a numberic order ID: ";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
+	for(size_t i=0; i<allOrders.size(); i++){
+		if(allOrders[i]->getOrderId() == orderID){
+			allOrders[i]->setStatus("Cancelled...");
+			OrderDAO::updateOrderStatus(db, orderID, "Cancelled...");
+			
+			double price= allOrders[i]->getTotalPrice();
+			for(size_t j=0; j<allCustomers.size(); j++){
+				if(allCustomers[j]->getCustomerID() == customerID){
+					int p = price;
+					allCustomers[j]->deductPoints(p);
+					
+					CustomerDAO::updateCustomer(db, allCustomers[j]);
+					cout << "Your Points now: "  << allCustomers[j]->getPoints() << endl;
+					cout << "Your level now: " << allCustomers[j]->getLevel()->getLevelName() << endl << endl;
+					break;
+				}
+			}
+			return;
+		}
+	}
+	cout << "There is no order with this Id!" << endl;
+}

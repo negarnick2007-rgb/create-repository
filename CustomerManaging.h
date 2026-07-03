@@ -20,5 +20,6 @@ void deleteAllCustomers(vector<Customer*>& allCustomers);
 void showAllRestaurants(vector<Restaurant*>& allRestaurants);
 void addToOrder(Order* order, int restaurantID, vector<Restaurant*>& allRestaurants);
 void removeFromOrder(Order* order);
+void cancelingOrder(sqlite3* db, int customerID, vector<Order*>& allOrders, vector<Customer*>& allCustomers);
 
 #endif

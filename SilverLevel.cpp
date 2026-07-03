@@ -51,3 +51,8 @@ MembershipLevel* SilverLevel::checkDowngrade(int Points) const
 	}
     return nullptr;
 }
+
+int SilverLevel::getNextLevelP() const
+{
+	return 300;
+}

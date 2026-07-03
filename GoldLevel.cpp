@@ -51,3 +51,8 @@ MembershipLevel* GoldLevel::checkDowngrade(int Points) const
 	}
     return nullptr;
 }
+
+int GoldLevel::getNextLevelP() const
+{
+	return 700;
+}

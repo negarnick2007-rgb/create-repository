@@ -47,3 +47,8 @@ MembershipLevel* NormalLevel::checkDowngrade(int Points) const
 {
     return nullptr;
 }
+
+int NormalLevel::getNextLevelP() const
+{
+	return 100;
+}

@@ -47,3 +47,8 @@ MembershipLevel* VipLevel::checkDowngrade(int Points) const
 	}
     return nullptr;
 }
+
+int VipLevel::getNextLevelP() const
+{
+	return 0;
+}
