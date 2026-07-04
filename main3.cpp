@@ -75,6 +75,7 @@ int main()
             cout << "Your ID: " << customer->getCustomerID() << endl;
             cout << "Your Level: " << customer->getLevel()->getLevelName() << endl;
             cout << "Your Points: " << customer->getPoints() << endl;
+            showMessage(customerID, allOrders);
             
             if(next == 0){
             	cout << "You are in the last level!" << endl << endl;

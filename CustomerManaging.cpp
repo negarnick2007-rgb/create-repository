@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <ctime>
 #include "Database.h"
 #include "CustomerManaging.h"
 #include "Order.h"
@@ -69,7 +70,18 @@ void paymentManaging(sqlite3* db, Order* order, vector<Order*>& allOrders, Custo
 	cout << "Discount: " << discount << endl;
 	cout << "Shipping cost: " << shipCost << endl;
 	cout << "Final Price: " << bill << endl;
-	
+	if(customer->getCoupons() > 0){
+		int coupon= customer->getCoupons();
+		cout << "You have " << coupon << " coupons to use (you can get a free french fries!)" << endl;
+		cout << "Enter 'Yes' to use or 'No' to continue... " << endl;
+		string x;
+		cin >> x;
+		if(x == "Yes" || x == "yes"){
+			customer->useCoupon();
+			CustomerDAO::updateCustomer(db, customer);
+			cout << "The number of your coupons after use: " << customer->getCoupons() << endl;
+		}
+	}
 	double totalPrice;
 	cout << "Please pay the bill: (send the final price) ";
 	while(!(cin >> totalPrice)){
@@ -212,4 +224,24 @@ void cancelingOrder(sqlite3* db, int customerID, vector<Order*>& allOrders, vect
 		}
 	}
 	cout << "There is no order with this Id!" << endl;
+}
+
+void showMessage(int customerID, vector<Order*>& allOrders)
+{
+	int n=0;
+	for(size_t i=0; i<allOrders.size(); i++){
+		if(allOrders[i]->getCustomerID() == customerID){
+			n++;
+		}
+	}
+	if(n >= 3){
+		cout << "(Frequent Buyer)" << endl;
+	}
+	
+	long long int t= time(0);
+	tm* x= localtime(&t);
+	int hour= x->tm_hour;
+	if(hour >= 20 && hour <= 24){
+		cout << "(Night Customer)" << endl;
+	}
 }
