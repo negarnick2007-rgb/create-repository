@@ -87,7 +87,15 @@ void paymentManaging(sqlite3* db, Order* order, vector<Order*>& allOrders, Custo
 		canPay= order->finalizePayment(totalPrice);
 	}
 	int amount= firstPrice;
+	
+	string oldl = customer->getLevel()->getLevelName();
 	customer->addPoints(amount);
+	string newl = customer->getLevel()->getLevelName();
+	
+	if(newl != oldl){
+		CustomerDAO::saveLevels(db, customer->getCustomerID(), oldl, newl);
+	}
+	
 	CustomerDAO::updateCustomer(db, customer);
 	
 	cout << "Points you have earned now: " << customer->getLevel()->getEarnedPoints(firstPrice) << endl;
@@ -185,7 +193,14 @@ void cancelingOrder(sqlite3* db, int customerID, vector<Order*>& allOrders, vect
 			for(size_t j=0; j<allCustomers.size(); j++){
 				if(allCustomers[j]->getCustomerID() == customerID){
 					int p = price;
+					
+					string oldl= allCustomers[j]->getLevel()->getLevelName();
 					allCustomers[j]->deductPoints(p);
+					string newl= allCustomers[j]->getLevel()->getLevelName();
+					
+					if(oldl != newl){
+						CustomerDAO::saveLevels(db, allCustomers[j]->getCustomerID(), oldl, newl);
+					}
 					
 					CustomerDAO::updateCustomer(db, allCustomers[j]);
 					cout << "Your Points now: "  << allCustomers[j]->getPoints() << endl;

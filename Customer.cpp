@@ -43,7 +43,7 @@ void Customer::addPoints(int orderAmount)
 
     MembershipLevel* upgraded= level->checkUpgrade(points);
     if(upgraded != nullptr){
-        cout << "Congratulations! Your membership level has been upgraded to " << upgraded->getLevelName() << "!" << endl;
+        cout << "Congratulations! Your membership level has been upgraded to " << upgraded->getLevelName() << " !" << endl;
         delete level;
         level= upgraded;
     }

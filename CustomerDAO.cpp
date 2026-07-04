@@ -1,3 +1,4 @@
+#include <iostream>
 #include <vector>
 #include <string>
 #include "sqlite3.h"
@@ -86,4 +87,41 @@ bool CustomerDAO::deleteCustomer(sqlite3* db, int customerID)
 	sqlite3_finalize(stmt);
 	
 	return rc == SQLITE_DONE;
+}
+
+void CustomerDAO::saveLevels(sqlite3* db, int customerID, string oldl, string newl)
+{
+	const char* sql= "INSERT INTO History (customerID, oldlevel, newlevel) "
+					"VALUES (?, ?, ?);";
+	sqlite3_stmt* stmt;
+	sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+	sqlite3_bind_int(stmt, 1, customerID);
+	sqlite3_bind_text(stmt, 2, oldl.c_str(), -1, SQLITE_TRANSIENT);
+	sqlite3_bind_text(stmt, 3, newl.c_str(), -1, SQLITE_TRANSIENT);
+	sqlite3_step(stmt);
+	sqlite3_finalize(stmt);
+}
+
+void CustomerDAO::levelHistory(sqlite3* db)
+{
+	int id;
+	cout << "Enter the cusromerID you want to see its history of levels: ";
+	cin >> id;
+	
+	const char* sql= "SELECT oldlevel, newlevel FROM History "
+					"WHERE customerID=?;";
+	sqlite3_stmt* stmt;
+	sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+	sqlite3_bind_int(stmt, 1, id);
+	cout << "  The History Of Levels  " << endl << endl;
+	bool find = false;
+	int num = 1;
+	while(sqlite3_step(stmt) == SQLITE_ROW){
+		find = true;
+		string oldl= (char*)sqlite3_column_text(stmt, 0);
+		string newl= (char*)sqlite3_column_text(stmt, 1);
+		cout << num << ". " << "Old level: " << oldl << "	New level: " << newl << endl;
+		num++;
+	}
+	sqlite3_finalize(stmt);
 }

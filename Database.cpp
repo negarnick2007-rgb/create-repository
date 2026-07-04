@@ -66,6 +66,14 @@ bool Database::init(const string& dbPath)
 		"points INTEGER DEFAULT 0,"
 		"level TEXT DEFAULT 'Normal',"
 		"coupons INTEGER DEFAULT 0"
+		");"
+		
+		"CREATE TABLE IF NOT EXISTS History ("
+		"num INTEGER PRIMARY KEY AUTOINCREMENT,"
+		"customerID INTEGER NOT NULL,"
+		"oldlevel TEXT NOT NULL,"
+		"newlevel TEXT NOT NULL,"
+		"FOREIGN KEY(customerID) REFERENCES Customers(id)"
 		");";
 		
 	char* errorMessage= nullptr;

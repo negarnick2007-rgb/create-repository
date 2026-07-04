@@ -179,6 +179,7 @@ void changeLevel(sqlite3* db, vector<Customer*>& allCustomers)
 	}
 	switch (n){
 		case 1: {
+			string oldl = cust->getLevel()->getLevelName();
 			string level;
 			cout << "Enter new level (Normal / Silver / Gold / VIP): ";
 			cin >> level;
@@ -205,10 +206,16 @@ void changeLevel(sqlite3* db, vector<Customer*>& allCustomers)
 			}
 			
 			cust->setLevel(l);
+			string newl= cust->getLevel()->getLevelName();
+			
+			if(oldl != newl){
+				CustomerDAO::saveLevels(db, cust->getCustomerID(), oldl, newl);
+			}
 			CustomerDAO::updateCustomer(db, cust);
 			break;
 		}
 		case 2:{
+			string oldl= cust->getLevel()->getLevelName();
 			int point;
 			cout << "Enter new points: ";
 			cin >> point;
@@ -216,18 +223,30 @@ void changeLevel(sqlite3* db, vector<Customer*>& allCustomers)
 			if(point >= 0 && point < 100){
 				l = new NormalLevel();
 				cust->setLevel(l);
+				if(oldl != "Normal"){
+					CustomerDAO::saveLevels(db, cust->getCustomerID(), oldl, "Normal");
+				}
 				
 			}else if(point >= 100 && point < 300){
 				l = new SilverLevel();
 				cust->setLevel(l);
+				if(oldl != "Silver"){
+					CustomerDAO::saveLevels(db, cust->getCustomerID(), oldl, "Silver");
+				}
 				
 			}else if(point >= 300 && point < 700){
 				l = new GoldLevel();
 				cust->setLevel(l);
+				if(oldl != "Gold"){
+					CustomerDAO::saveLevels(db, cust->getCustomerID(), oldl, "Gold");
+				}
 				
 			}else if(point >= 700){
 				l = new VipLevel();
 				cust->setLevel(l);
+				if(oldl != "VIP"){
+					CustomerDAO::saveLevels(db, cust->getCustomerID(), oldl, "VIP");
+				}
 				
 			}
 			cust->setPoints(point);

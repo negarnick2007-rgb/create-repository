@@ -226,6 +226,7 @@ int main()
                 cout << "5. Delete order from the site" << endl;
                 cout << "6. Show number of people in each level" << endl;
                 cout << "7. Changing a customer's points or level" << endl;
+                cout << "8. Show the history of changing customers' levels" << endl;
                 cout << "0. Back to Main Menu" << endl;
                 cout << "Choose your operation: ";
 
@@ -278,6 +279,9 @@ int main()
 						break;
 					case 7:
 						changeLevel(db, allCustomers);
+						break;
+					case 8:
+						CustomerDAO::levelHistory(db);
 						break;
                     case 0:
 						backToMain = true; 
