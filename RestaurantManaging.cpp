@@ -34,7 +34,7 @@ void showMyRestaurant(Restaurant* r)
 void showMyRestaurantOrders(Restaurant* r, vector<Order*>& allOrders)
 {
 	for(size_t i=0; i<allOrders.size(); i++){
-		if(allOrders[i]->getRestaurantID() == r->getID()){
+		if(allOrders[i]->getRestaurantID() == r->getID() && allOrders[i]->getStatus() != "Cancelled..."){
 			allOrders[i]->displayOrder();
 		}
 	}

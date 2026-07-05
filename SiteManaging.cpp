@@ -112,7 +112,9 @@ void SalesStatistics(vector<Order*>& allOrders)
 	cout << "Count of all orders: " << count << endl;
 	
 	for(size_t i=0; i<allOrders.size(); i++){
-		total= total + allOrders[i]->getTotalPrice();
+		if(allOrders[i]->getStatus() != "Cancelled..."){
+			total= total + allOrders[i]->getTotalPrice();
+		}
 	}
 	
 	cout << "Total sales price (with no discount): " << total << endl << endl;
