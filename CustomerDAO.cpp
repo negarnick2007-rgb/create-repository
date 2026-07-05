@@ -76,19 +76,6 @@ void CustomerDAO::loadAllCustomers(sqlite3* db, vector<Customer*>& allCustomers)
 	sqlite3_finalize(stmt);
 }
 
-bool CustomerDAO::deleteCustomer(sqlite3* db, int customerID)
-{
-	const char* sql= "DELETE FROM Customers WHERE id=?;";
-	sqlite3_stmt* stmt;
-	sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
-	sqlite3_bind_int(stmt, 1, customerID);
-	
-	bool rc= sqlite3_step(stmt);
-	sqlite3_finalize(stmt);
-	
-	return rc == SQLITE_DONE;
-}
-
 void CustomerDAO::saveLevels(sqlite3* db, int customerID, string oldl, string newl)
 {
 	const char* sql= "INSERT INTO History (customerID, oldlevel, newlevel) "

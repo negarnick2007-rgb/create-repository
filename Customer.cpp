@@ -77,11 +77,6 @@ void Customer::useCoupon()
 	}
 }
 
-void Customer::addCoupons()
-{
-    coupons= coupons + level->getCouponCount();
-}
-
 void Customer::setPoints(int points)
 {
 	this->points= points;

@@ -233,7 +233,7 @@ int main()
 
                 int num1;
                 cin >> num1;
-                while (!(num1 >= 0 && num1 <= 7)) {
+                while (!(num1 >= 0 && num1 <= 8)) {
                     cerr << "Invalid operation! Try again..." << endl << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
