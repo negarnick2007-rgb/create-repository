@@ -46,6 +46,7 @@ void Customer::addPoints(int orderAmount)
         cout << "Congratulations! Your membership level has been upgraded to " << upgraded->getLevelName() << " !" << endl;
         delete level;
         level= upgraded;
+        setCoupons();
     }
 }
 
@@ -61,6 +62,7 @@ void Customer::deductPoints(int orderAmount)
         cout << "Your membership level has been downgraded to " << downgraded->getLevelName() << "." << endl;
         delete level;
         level= downgraded;
+        setCoupons();
     }
 }
 
@@ -68,6 +70,7 @@ void Customer::setLevel(MembershipLevel* newlevel)
 {
     delete level;
     level= newlevel;
+    setCoupons();
 }
 
 void Customer::useCoupon()
@@ -80,4 +83,10 @@ void Customer::useCoupon()
 void Customer::setPoints(int points)
 {
 	this->points= points;
+}
+
+void Customer::setCoupons()
+{
+	int coupons = level->getCouponCount();
+	this->coupons = coupons;
 }

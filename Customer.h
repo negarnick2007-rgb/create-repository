@@ -22,6 +22,7 @@ class Customer{
     	void setLevel(MembershipLevel* level);
     	void useCoupon();
     	void setPoints(int points); //for changing by site manager
+    	void setCoupons();
 };
 
 #endif

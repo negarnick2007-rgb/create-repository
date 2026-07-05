@@ -172,10 +172,12 @@ void changeLevel(sqlite3* db, vector<Customer*>& allCustomers)
 	cout << "1. Level" << endl;
 	cout << "2. Points" << endl;
 	int n;
-	while(!(cin >> n)){
+	cin >> n;
+	while(!(n == 1 || n == 2)){
 		cerr << "Wrong order! try again...  ";
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cin >> n;
 	}
 	switch (n){
 		case 1: {
