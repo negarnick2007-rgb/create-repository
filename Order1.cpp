@@ -29,16 +29,18 @@ int Order::getItemCount() const
 	return items.size();
 }
 
-bool Order::finalizePayment(double totalPrice)
+bool Order::finalizePayment(double firstPrice, double discount, double shipCost, double finalPrice)
 {
-	if(this->totalPrice == totalPrice){
+	double total= totalPrice - discount + shipCost;
+	
+	if(total == finalPrice){
 		cout << "Your order has been successfully placed!" << endl << endl;
 		return true;
 	}else{
-		if(this->totalPrice > totalPrice){
+		if(total > finalPrice){
 			cerr << "Your payment is less than total price!" << endl;
 		}else{
-			if(this->totalPrice < totalPrice){
+			if(total < finalPrice){
 				cerr << "Your payment is more than total price!" << endl;
 			}
 		}

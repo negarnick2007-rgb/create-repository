@@ -22,7 +22,7 @@ class Order{
 		string getStatus() const;
 		double getTotalPrice() const;
 		int getItemCount() const;
-		bool finalizePayment(double totalPrice);
+		bool finalizePayment(double firstPrice, double discount, double shipCost, double finalPrice);
 		int getCustomerID() const;
 		int getRestaurantID() const;
 		int static getOrderCount();

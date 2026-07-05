@@ -90,13 +90,13 @@ void paymentManaging(sqlite3* db, Order* order, vector<Order*>& allOrders, Custo
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	}
 	
-	bool canPay= order->finalizePayment(totalPrice);
+	bool canPay= order->finalizePayment(firstPrice, discount, shipCost, totalPrice);
 	
 	while(!canPay){
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cin >> totalPrice;
-		canPay= order->finalizePayment(totalPrice);
+		canPay= order->finalizePayment(firstPrice, discount, shipCost, totalPrice);
 	}
 	int amount= firstPrice;
 	
