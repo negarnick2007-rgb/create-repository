@@ -115,7 +115,7 @@ void SalesStatistics(vector<Order*>& allOrders)
 		total= total + allOrders[i]->getTotalPrice();
 	}
 	
-	cout << "Total sales price: " << total << endl << endl;
+	cout << "Total sales price (with no discount): " << total << endl << endl;
 }
 
 void deleteOneOrder(vector<Order*>& allOrders, int id)
