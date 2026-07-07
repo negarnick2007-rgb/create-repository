@@ -10,7 +10,7 @@ class Database{
 		static sqlite3* db;
 		static bool initialized;
 	public:
-		static bool init(const string& dbPath= "food_order.db");
+		static bool init(const string& dbPath);
 		static sqlite3* getDB();
 		static void close();
 };
