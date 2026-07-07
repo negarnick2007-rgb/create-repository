@@ -52,7 +52,8 @@ void Customer::addPoints(int orderAmount)
 
 void Customer::deductPoints(int orderAmount)
 {
-    points= points - orderAmount;
+	int deduct = level->getEarnedPoints(orderAmount);
+    points= points - deduct;
     if(points < 0){
     	points= 0;
 	}
